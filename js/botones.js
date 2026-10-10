@@ -109,6 +109,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const COMISION_DEPOSITO = 12;
 
+    const tarjetaEnmascarada =
+    document.getElementById("tarjetaEnmascarada");
+
+tarjeta1.addEventListener("input", function () {
+    // Permitir solamente números y limitar a 16 dígitos
+    tarjeta1.value = tarjeta1.value
+        .replace(/\D/g, "")
+        .slice(0, 16);
+
+    const numero = tarjeta1.value;
+
+    if (numero.length === 16) {
+        tarjetaEnmascarada.textContent =
+            "Tarjeta: •••• •••• •••• " + numero.slice(-4);
+    } else {
+        tarjetaEnmascarada.textContent =
+            "Dígitos ingresados: " + numero.length + " de 16";
+    }
+}); 
+
     // Abrir el modal de depósitos con el botón 3
     btn3.onclick = function () {
     console.log("Se presionó el botón 3: DEPÓSITOS");
@@ -143,13 +163,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const numero1 = tarjeta1.value.trim();
         const numero2 = tarjeta2.value.trim();
 
-        if (numero1 === "" || numero2 === "") {
-            mensaje.style.color = "red";
-            mensaje.textContent =
-                "Debes ingresar ambos números de tarjeta.";
-            return;
-        }
-
+    if (numero1.length !== 16 || numero2.length !== 16) {
+    mensaje.style.color = "red";
+    mensaje.textContent =
+        "Debes ingresar los 16 dígitos en ambos campos.";
+    return;
+}   
         if (!/^\d+$/.test(numero1) ||
             !/^\d+$/.test(numero2)) {
             mensaje.style.color = "red";
@@ -211,26 +230,40 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Confirmar el depósito
-    confirmarCantidad.addEventListener("click", function () {
+  
+confirmarCantidad.addEventListener("click", function () {
 
-        const monto = Number(montoDeposito.value);
+    const montoTexto = montoDeposito.value.trim();
+    const monto = Number(montoTexto);
 
-        if (montoDeposito.value.trim() === "" ||
-            !Number.isFinite(monto) ||
-            monto <= 0) {
-
-            mensajeCantidad.style.color = "red";
-            mensajeCantidad.textContent =
-                "Ingresa un monto válido para el depósito.";
-            return;
-        }
-
-        const total = monto + COMISION_DEPOSITO;
-
-        mensajeCantidad.style.color = "green";
+    if (
+        montoTexto === "" ||
+        !Number.isFinite(monto) ||
+        monto <= 0
+    ) {
+        mensajeCantidad.style.color = "red";
         mensajeCantidad.textContent =
-            "Depósito registrado. Total a pagar: $" +
-            total.toFixed(2);
-    });
+            "Ingresa un monto válido para el depósito.";
+        return;
+    }
+
+    const total = monto + COMISION_DEPOSITO;
+
+    // Agregar el depósito al carrito, incluyendo la comisión
+    agregarProductoModal(
+        "Depósito $" + monto.toFixed(2) +
+        " + comisión $" + COMISION_DEPOSITO.toFixed(2),
+        total
+    );
+
+    mensajeCantidad.style.color = "green";
+    mensajeCantidad.textContent =
+        "Depósito agregado al carrito. Total: $" +
+        total.toFixed(2);
+
+    // Cerrar el modal después de agregarlo
+    modalCantidad.style.display = "none";
+});
 
 });
+

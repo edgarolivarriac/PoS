@@ -147,28 +147,33 @@
 
         <h2>Depósitos</h2>
 
-        <label for="tarjeta1">Número de tarjeta</label>
-        <input
-            type="text"
-            id="tarjeta1"
-            placeholder="Ingresa el número de tarjeta"
-            inputmode="numeric"
-            autocomplete="off"
-        >
+     
+<label for="tarjeta1">Número de tarjeta</label>
+<input
+    type="password"
+    id="tarjeta1"
+    placeholder="Ingresa los 16 dígitos"
+    inputmode="numeric"
+    maxlength="16"
+    autocomplete="off"
+>
 
-        <label for="tarjeta2">Confirmar número de tarjeta</label>
-        <input
-            type="text"
-            id="tarjeta2"
-            placeholder="Repite el número de tarjeta"
-            inputmode="numeric"
-            autocomplete="off"
+<label for="tarjeta2">Confirmar número de tarjeta</label>
+<input
+    type="password"
+    id="tarjeta2"
+    placeholder="Confirma los 16 dígitos"
+    inputmode="numeric"
+    maxlength="16"
+    autocomplete="off"
+>
+
         >
 
         <button type="button" id="confirmarDeposito">
             Confirmar
         </button>
-
+        <p id="tarjetaEnmascarada"></p>
         <p id="mensajeDeposito"></p>
 
     </div>
