@@ -27,14 +27,14 @@ function abrirModalProducto() {
     var cerrarBtn2 = document.getElementById("cerrarBtn2");
 
     // BOTÓN 2 ABRE EL MODAL
-   btn2.onclick = function () {
-    console.log("Se presionó el botón 2: CAFÉ");
+    btn2.onclick = function () {
+        console.log("Se presionó el botón 2: CAFÉ");
 
-    modal.style.display = "none";
-    modal2.style.display = "flex";
+        modal.style.display = "none";
+        modal2.style.display = "flex";
 
-    document.getElementById("modalDepositos").style.display = "none";
-};
+        document.getElementById("modalDepositos").style.display = "none";
+    };
     // CERRAR MODAL 2
     cerrarBtn2.onclick = function () {
 
@@ -110,39 +110,39 @@ document.addEventListener("DOMContentLoaded", function () {
     const COMISION_DEPOSITO = 12;
 
     const tarjetaEnmascarada =
-    document.getElementById("tarjetaEnmascarada");
+        document.getElementById("tarjetaEnmascarada");
 
-tarjeta1.addEventListener("input", function () {
-    // Permitir solamente números y limitar a 16 dígitos
-    tarjeta1.value = tarjeta1.value
-        .replace(/\D/g, "")
-        .slice(0, 16);
+    tarjeta1.addEventListener("input", function () {
+        // Permitir solamente números y limitar a 16 dígitos
+        tarjeta1.value = tarjeta1.value
+            .replace(/\D/g, "")
+            .slice(0, 16);
 
-    const numero = tarjeta1.value;
+        const numero = tarjeta1.value;
 
-    if (numero.length === 16) {
-        tarjetaEnmascarada.textContent =
-            "Tarjeta: •••• •••• •••• " + numero.slice(-4);
-    } else {
-        tarjetaEnmascarada.textContent =
-            "Dígitos ingresados: " + numero.length + " de 16";
-    }
-}); 
+        if (numero.length === 16) {
+            tarjetaEnmascarada.textContent =
+                "Tarjeta: •••• •••• •••• " + numero.slice(-4);
+        } else {
+            tarjetaEnmascarada.textContent =
+                "Dígitos ingresados: " + numero.length + " de 16";
+        }
+    });
 
     // Abrir el modal de depósitos con el botón 3
     btn3.onclick = function () {
-    console.log("Se presionó el botón 3: DEPÓSITOS");
+        console.log("Se presionó el botón 3: DEPÓSITOS");
 
-    document.getElementById("modalCafe").style.display = "none";
-    modal.style.display = "flex";
+        document.getElementById("modalCafe").style.display = "none";
+        modal.style.display = "flex";
 
-    mensaje.textContent = "";
-    tarjeta1.value = "";
-    tarjeta2.value = "";
+        mensaje.textContent = "";
+        tarjeta1.value = "";
+        tarjeta2.value = "";
 
-    modalCantidad.style.display = "none";
-    tarjeta1.focus();
-};
+        modalCantidad.style.display = "none";
+        tarjeta1.focus();
+    };
 
     // Cerrar el primer modal
     function cerrarModal() {
@@ -163,12 +163,12 @@ tarjeta1.addEventListener("input", function () {
         const numero1 = tarjeta1.value.trim();
         const numero2 = tarjeta2.value.trim();
 
-    if (numero1.length !== 16 || numero2.length !== 16) {
-    mensaje.style.color = "red";
-    mensaje.textContent =
-        "Debes ingresar los 16 dígitos en ambos campos.";
-    return;
-}   
+        if (numero1.length !== 16 || numero2.length !== 16) {
+            mensaje.style.color = "red";
+            mensaje.textContent =
+                "Debes ingresar los 16 dígitos en ambos campos.";
+            return;
+        }
         if (!/^\d+$/.test(numero1) ||
             !/^\d+$/.test(numero2)) {
             mensaje.style.color = "red";
@@ -222,7 +222,7 @@ tarjeta1.addEventListener("input", function () {
                 "$" + (monto + COMISION_DEPOSITO).toFixed(2);
         } else {
             importeDeposito.textContent = "$0.00";
-            totalDeposito.textContent    =
+            totalDeposito.textContent =
                 "$" + COMISION_DEPOSITO.toFixed(2);
         }
 
@@ -230,40 +230,217 @@ tarjeta1.addEventListener("input", function () {
     });
 
     // Confirmar el depósito
-  
-confirmarCantidad.addEventListener("click", function () {
 
-    const montoTexto = montoDeposito.value.trim();
-    const monto = Number(montoTexto);
+    confirmarCantidad.addEventListener("click", function () {
 
-    if (
-        montoTexto === "" ||
-        !Number.isFinite(monto) ||
-        monto <= 0
-    ) {
-        mensajeCantidad.style.color = "red";
+        const montoTexto = montoDeposito.value.trim();
+        const monto = Number(montoTexto);
+
+        if (
+            montoTexto === "" ||
+            !Number.isFinite(monto) ||
+            monto <= 0
+        ) {
+            mensajeCantidad.style.color = "red";
+            mensajeCantidad.textContent =
+                "Ingresa un monto válido para el depósito.";
+            return;
+        }
+
+        const total = monto + COMISION_DEPOSITO;
+
+        // Agregar el depósito al carrito, incluyendo la comisión
+        agregarProductoModal(
+            "Depósito $" + monto.toFixed(2) +
+            " + comisión $" + COMISION_DEPOSITO.toFixed(2),
+            total
+        );
+
+        mensajeCantidad.style.color = "green";
         mensajeCantidad.textContent =
-            "Ingresa un monto válido para el depósito.";
+            "Depósito agregado al carrito. Total: $" +
+            total.toFixed(2);
+
+        // Cerrar el modal después de agregarlo
+        modalCantidad.style.display = "none";
+    });
+
+
+
+
+    // =====================================
+    // BOTÓN 4: PAGO CON TARJETA
+    // =====================================
+    const btn4 = document.getElementById("btn4");
+    const modalPago = document.getElementById("modalPagoTarjeta");
+    const cerrarPagoTarjeta = document.getElementById("cerrarPagoTarjeta");
+    const numeroPago = document.getElementById("numeroPago");
+    const importePago = document.getElementById("importePago");
+    const mensajePago = document.getElementById("mensajePago");
+    const confirmarPago = document.getElementById("confirmarPago");
+
+    btn4.addEventListener("click", function () {
+        const carrito = document.getElementById("carrito");
+
+        if (!carrito || carrito.querySelectorAll("tr").length === 0) {
+            alert("Agrega productos al carrito antes de pagar.");
+            return;
+        }
+
+        modalPago.style.display = "flex";
+        numeroPago.value = "";
+        mensajePago.textContent = "";
+
+        const totalTexto = document.getElementById("total").textContent;
+        importePago.textContent = totalTexto;
+
+        numeroPago.focus();
+    });
+
+    numeroPago.addEventListener("input", function () {
+        numeroPago.value = numeroPago.value
+            .replace(/\D/g, "")
+            .slice(0, 16);
+    });
+
+    cerrarPagoTarjeta.addEventListener("click", function () {
+        modalPago.style.display = "none";
+    });
+
+    confirmarPago.addEventListener("click", function () {
+    if (numeroPago.value.length !== 16) {
+        mensajePago.style.color = "red";
+        mensajePago.textContent = "Ingresa los 16 dígitos de la tarjeta.";
         return;
     }
 
-    const total = monto + COMISION_DEPOSITO;
+    // Confirmar el pago simulado
+    alert("¡Pago realizado correctamente!");
 
-    // Agregar el depósito al carrito, incluyendo la comisión
-    agregarProductoModal(
-        "Depósito $" + monto.toFixed(2) +
-        " + comisión $" + COMISION_DEPOSITO.toFixed(2),
-        total
-    );
+    // Vaciar los productos del carrito
+    document.getElementById("carrito").innerHTML = "";
 
-    mensajeCantidad.style.color = "green";
-    mensajeCantidad.textContent =
-        "Depósito agregado al carrito. Total: $" +
-        total.toFixed(2);
+    // Reiniciar el total de la compra
+    document.getElementById("total").textContent = "$0.00";
 
-    // Cerrar el modal después de agregarlo
-    modalCantidad.style.display = "none";
+    // Cerrar el modal de pago
+    modalPago.style.display = "none";
+
+    // Limpiar los campos del modal
+    numeroPago.value = "";
+    mensajePago.textContent = "";
+    importePago.textContent = "$0.00";
 });
 
-});
+    // =====================================
+    // BOTÓN 5: TRANSFERENCIA SIN COMISIÓN
+    // =====================================
+    const btn5 = document.getElementById("btn5");
+    const modalTransferencia =
+        document.getElementById("modalTransferencia");
+    const cerrarTransferencia =
+        document.getElementById("cerrarTransferencia");
 
+    const tarjetaOrigen = document.getElementById("tarjetaOrigen");
+    const tarjetaDestino = document.getElementById("tarjetaDestino");
+    const mascaraOrigen = document.getElementById("mascaraOrigen");
+    const mascaraDestino = document.getElementById("mascaraDestino");
+    const montoTarjeta = document.getElementById("montoTarjeta");
+    const importeTarjeta = document.getElementById("importeTarjeta");
+    const totalTarjeta = document.getElementById("totalTarjeta");
+    const confirmarPagoTarjeta =
+        document.getElementById("confirmarPagoTarjeta");
+    const mensajePagoTarjeta =
+        document.getElementById("mensajePagoTarjeta");
+
+    btn5.addEventListener("click", function () {
+        modalTransferencia.style.display = "flex";
+
+        tarjetaOrigen.value = "";
+        tarjetaDestino.value = "";
+        montoTarjeta.value = "";
+        mascaraOrigen.textContent = "";
+        mascaraDestino.textContent = "";
+        mensajePagoTarjeta.textContent = "";
+        importeTarjeta.textContent = "$0.00";
+        totalTarjeta.textContent = "$0.00";
+    });
+
+    function configurarTarjeta(input, mascara) {
+        input.addEventListener("input", function () {
+            input.value = input.value.replace(/\D/g, "").slice(0, 16);
+
+            mascara.textContent = input.value.length === 16
+                ? "Tarjeta: •••• •••• •••• " + input.value.slice(-4)
+                : input.value.length + " de 16 dígitos";
+        });
+    }
+
+    configurarTarjeta(tarjetaOrigen, mascaraOrigen);
+    configurarTarjeta(tarjetaDestino, mascaraDestino);
+
+    montoTarjeta.addEventListener("input", function () {
+        const monto = Number(montoTarjeta.value);
+        const texto = monto > 0 && Number.isFinite(monto)
+            ? "$" + monto.toFixed(2)
+            : "$0.00";
+
+        importeTarjeta.textContent = texto;
+        totalTarjeta.textContent = texto;
+    });
+
+    cerrarTransferencia.addEventListener("click", function () {
+        modalTransferencia.style.display = "none";
+    });
+
+    confirmarPagoTarjeta.addEventListener("click", function () {
+        const origen = tarjetaOrigen.value;
+        const destino = tarjetaDestino.value;
+        const monto = Number(montoTarjeta.value);
+
+        if (origen.length !== 16 || destino.length !== 16) {
+            mensajePagoTarjeta.style.color = "red";
+            mensajePagoTarjeta.textContent =
+                "Ambas tarjetas deben tener 16 dígitos.";
+            return;
+        }
+
+        if (origen === destino) {
+            mensajePagoTarjeta.style.color = "red";
+            mensajePagoTarjeta.textContent =
+                "Las tarjetas deben ser diferentes.";
+            return;
+        }
+
+        if (!montoTarjeta.value.trim() ||
+            !Number.isFinite(monto) || monto <= 0) {
+            mensajePagoTarjeta.style.color = "red";
+            mensajePagoTarjeta.textContent =
+                "Ingresa un monto válido.";
+            return;
+        }
+
+
+        agregarProductoModal(
+            "Transferencia •••• " + origen.slice(-4) +
+            " a •••• " + destino.slice(-4),
+            monto
+        );
+
+        // Cerrar el modal
+        modalTransferencia.style.display = "none";
+
+        // Reiniciar los campos para la siguiente transferencia
+        tarjetaOrigen.value = "";
+        tarjetaDestino.value = "";
+        montoTarjeta.value = "";
+
+        mascaraOrigen.textContent = "";
+        mascaraDestino.textContent = "";
+        mensajePagoTarjeta.textContent = "";
+
+        importeTarjeta.textContent = "$0.00";
+        totalTarjeta.textContent = "$0.00";
+
+    });
+});

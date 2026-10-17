@@ -86,36 +86,36 @@
 
     </div>
 
-<div id="modalProductos" class="modal">
+    <div id="modalProductos" class="modal">
 
-    <div class="modal-contenido">
+        <div class="modal-contenido">
 
-        <span id="cerrar">&times;</span>
+            <span id="cerrar">&times;</span>
 
-        <h2>Selecciona una papita</h2>
+            <h2>Selecciona una papita</h2>
 
-        <div class="opcionesPapitas">
+            <div class="opcionesPapitas">
 
-            <div class="opcionPapita">
-                <img src="./img/adobada.png" class="papita" data-nombre="Sabritas" data-precio="18">
-                <h3>$18</h3>
-            </div>
+                <div class="opcionPapita">
+                    <img src="./img/adobada.png" class="papita" data-nombre="Sabritas" data-precio="18">
+                    <h3>$18</h3>
+                </div>
 
-            <div class="opcionPapita">
-                <img src="./img/peanuts.png" class="papita" data-nombre="Doritos" data-precio="20">
-                <h3>$20</h3>
-            </div>
+                <div class="opcionPapita">
+                    <img src="./img/peanuts.png" class="papita" data-nombre="Doritos" data-precio="20">
+                    <h3>$20</h3>
+                </div>
 
-            <div class="opcionPapita">
-                <img src="./img/churrumais.png" class="papita" data-nombre="Ruffles" data-precio="22">
-                <h3>$22</h3>
+                <div class="opcionPapita">
+                    <img src="./img/churrumais.png" class="papita" data-nombre="Ruffles" data-precio="22">
+                    <h3>$22</h3>
+                </div>
+
             </div>
 
         </div>
 
     </div>
-
-</div>
 
     <div id="modalCafe" class="modal">
 
@@ -137,86 +137,136 @@
 
         </div>
 
-</div>     
-<!-- Modal de depósitos -->
-<div id="modalDepositos" class="modal">
-
-    <div class="modal-contenido">
-
-        <span id="cerrarDepositos">&times;</span>
-
-        <h2>Depósitos</h2>
-
-     
-<label for="tarjeta1">Número de tarjeta</label>
-<input
-    type="password"
-    id="tarjeta1"
-    placeholder="Ingresa los 16 dígitos"
-    inputmode="numeric"
-    maxlength="16"
-    autocomplete="off"
->
-
-<label for="tarjeta2">Confirmar número de tarjeta</label>
-<input
-    type="password"
-    id="tarjeta2"
-    placeholder="Confirma los 16 dígitos"
-    inputmode="numeric"
-    maxlength="16"
-    autocomplete="off"
->
-
-        >
-
-        <button type="button" id="confirmarDeposito">
-            Confirmar
-        </button>
-        <p id="tarjetaEnmascarada"></p>
-        <p id="mensajeDeposito"></p>
-
     </div>
+    <!-- Modal de depósitos -->
+    <div id="modalDepositos" class="modal">
 
-</div>
+        <div class="modal-contenido">
 
-<!-- Segundo modal: cantidad del depósito -->
-<div id="modalCantidad" class="modal">
+            <span id="cerrarDepositos">&times;</span>
 
-    <div class="modal-contenido">
+            <h2>Depósitos</h2>
 
-        <span id="cerrarCantidad">&times;</span>
 
-        <h2>Cantidad del depósito</h2>
+            <label for="tarjeta1">Número de tarjeta</label>
+            <input type="password" id="tarjeta1" placeholder="Ingresa los 16 dígitos" inputmode="numeric" maxlength="16"
+                autocomplete="off">
 
-        <label for="montoDeposito">Monto a depositar</label>
-        <input
-            type="number"
-            id="montoDeposito"
-            placeholder="$0.00"
-            min="0.01"
-            step="0.01"
-        >
+            <label for="tarjeta2">Confirmar número de tarjeta</label>
+            <input type="password" id="tarjeta2" placeholder="Confirma los 16 dígitos" inputmode="numeric"
+                maxlength="16" autocomplete="off">
 
-        <div class="resumenDeposito">
-            <p>Depósito: <strong id="importeDeposito">$0.00</strong></p>
-            <p>Comisión: <strong>$12.00</strong></p>
-            <hr>
-            <h3>
-                Total a pagar:
-                <span id="totalDeposito">$12.00</span>
-            </h3>
+            >
+
+            <button type="button" id="confirmarDeposito">
+                Confirmar
+            </button>
+            <p id="tarjetaEnmascarada"></p>
+            <p id="mensajeDeposito"></p>
+
         </div>
 
-        <button type="button" id="confirmarCantidad">
-            Confirmar depósito
-        </button>
+    </div>
 
-        <p id="mensajeCantidad"></p>
+    <!-- Segundo modal: cantidad del depósito -->
+    <div id="modalCantidad" class="modal">
+
+        <div class="modal-contenido">
+
+            <span id="cerrarCantidad">&times;</span>
+
+            <h2>Cantidad del depósito</h2>
+
+            <label for="montoDeposito">Monto a depositar</label>
+            <input type="number" id="montoDeposito" placeholder="$0.00" min="0.01" step="0.01">
+
+            <div class="resumenDeposito">
+                <p>Depósito: <strong id="importeDeposito">$0.00</strong></p>
+                <p>Comisión: <strong>$12.00</strong></p>
+                <hr>
+                <h3>
+                    Total a pagar:
+                    <span id="totalDeposito">$12.00</span>
+                </h3>
+            </div>
+
+            <button type="button" id="confirmarCantidad">
+                Confirmar depósito
+            </button>
+
+            <p id="mensajeCantidad"></p>
+
+        </div>
 
     </div>
 
+    <!-- Modal de transferencia entre tarjetas -->
+    <div id="modalTransferencia" class="modal">
+        <div class="modal-contenido">
+
+            <span id="cerrarTransferencia">&times;</span>
+
+            <h2>Transferencia entre tarjetas</h2>
+
+            <label for="tarjetaOrigen">Tarjeta de origen</label>
+            <input type="password" id="tarjetaOrigen" placeholder="16 dígitos" inputmode="numeric" maxlength="16"
+                autocomplete="off">
+            <p id="mascaraOrigen"></p>
+
+            <label for="tarjetaDestino">Tarjeta de destino</label>
+            <input type="password" id="tarjetaDestino" placeholder="16 dígitos" inputmode="numeric" maxlength="16"
+                autocomplete="off">
+            <p id="mascaraDestino"></p>
+
+            <label for="montoTarjeta">Monto a transferir</label>
+            <input type="number" id="montoTarjeta" placeholder="$0.00" min="0.01" step="0.01">
+
+            <div class="resumenDeposito">
+                <p>Transferencia:
+                    <strong id="importeTarjeta">$0.00</strong>
+                </p>
+
+                <h3>Total a pagar:
+                    <span id="totalTarjeta">$0.00</span>
+                </h3>
+            </div>
+
+            <button type="button" id="confirmarPagoTarjeta">
+                Confirmar pago
+            </button>
+
+            <p id="mensajePagoTarjeta"></p>
+
+        </div>
+    </div>
+
+<!-- Modal del botón 4: pago con tarjeta -->
+<div id="modalPagoTarjeta" class="modal">
+    <div class="modal-contenido">
+        <span id="cerrarPagoTarjeta">&times;</span>
+
+        <h2>Pago con tarjeta</h2>
+        <p>Introduce los datos para simular el pago.</p>
+
+        <label for="numeroPago">Número de tarjeta</label>
+        <input
+            type="password"
+            id="numeroPago"
+            placeholder="16 dígitos"
+            inputmode="numeric"
+            maxlength="16"
+            autocomplete="off"
+        >
+
+        <p>Importe a pagar: <strong id="importePago">$0.00</strong></p>
+        <p id="mensajePago"></p>
+
+        <button type="button" id="confirmarPago">
+            Confirmar pago
+        </button>
+    </div>
 </div>
+
 
 
 
